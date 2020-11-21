@@ -1,0 +1,22 @@
+{
+  "name": "ts-sorting-visualizer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd app && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zachyingling/ts-sorting-visualizer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zachyingling/ts-sorting-visualizer/issues"
+  },
+  "homepage": "https://github.com/zachyingling/ts-sorting-visualizer#readme"
+}
