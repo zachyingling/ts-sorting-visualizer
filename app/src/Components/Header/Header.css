@@ -6,6 +6,7 @@ header {
 button {
   background-color: burlywood;
   float: right;
+  margin: 10px;
 }
 
 #title{

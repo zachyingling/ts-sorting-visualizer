@@ -21,6 +21,10 @@ export default class App extends React.Component<IProps, ArrayState> {
     // Binds the this context being the "Array Component" to the function
     // So if the function is invoked else where it keeps the this context from this component
     this.generateArray = this.generateArray.bind(this);
+    this.mergeSort = this.mergeSort.bind(this);
+    this.bubbleSort = this.bubbleSort.bind(this);
+    this.quickSort = this.quickSort.bind(this);
+    this.insertionSort = this.insertionSort.bind(this);
 
     this.state = {
       firstGenArray: [],
@@ -45,11 +49,25 @@ export default class App extends React.Component<IProps, ArrayState> {
     });
   }
 
+  mergeSort(){}
+
+  bubbleSort(){}
+
+  quickSort(){}
+
+  insertionSort(){}
+
   render(){
     return (
       <div className="App">
         <div>
-          <Header generateArray={this.generateArray}/>
+          <Header 
+            generateArray={this.generateArray}
+            mergeSort={this.mergeSort}
+            bubbleSort={this.bubbleSort}
+            quickSort={this.quickSort}
+            insertionSort={this.insertionSort}
+          />
           <Container fluid>
             <Row className="justify-content-md-center">
               <Col md="auto">
