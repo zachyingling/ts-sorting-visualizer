@@ -1,0 +1,18 @@
+header {
+  background-color: blue;
+  padding: 10px;
+}
+
+button {
+  background-color: burlywood;
+  float: right;
+}
+
+#title{
+  color: white;
+  display: inline;
+}
+
+br{
+  clear: both;
+}

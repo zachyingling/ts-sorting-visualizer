@@ -1,4 +1,6 @@
 .valueContainer {
   float: left;
-  margin: 3px;
+  margin: 2px;
+  width: 10px;
+  background-color: red;
 }

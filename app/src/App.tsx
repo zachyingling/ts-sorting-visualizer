@@ -37,7 +37,7 @@ export default class App extends React.Component<IProps, ArrayState> {
     let tempArr = [];
     for(let i = 0; i < 100; i++){
       // Generate a random number from 1-100
-      let randomNumber = Math.floor(Math.random() * 100) + 1;
+      let randomNumber = Math.floor(Math.random() * 700) + 4;
       tempArr.push(randomNumber);
     }
     this.setState({
@@ -51,8 +51,8 @@ export default class App extends React.Component<IProps, ArrayState> {
         <div>
           <Header generateArray={this.generateArray}/>
           <Container fluid>
-            <Row>
-              <Col>
+            <Row className="justify-content-md-center">
+              <Col md="auto">
                 {this.state.firstGenArray.map((x, index) => <Value passedNumber={x} key={index} />)}
                 <br/>
               </Col>

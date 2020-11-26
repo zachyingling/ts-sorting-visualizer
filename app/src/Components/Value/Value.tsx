@@ -6,7 +6,7 @@ interface IProps {
 }
 
 function Value(props: IProps) {
-  return(<div className="valueContainer">{props.passedNumber}</div>)
+  return(<div className="valueContainer" style={{height: props.passedNumber + "px"}}></div>)
 }
 
 export default Value;
