@@ -7,10 +7,23 @@ interface IProps {
   bubbleSort: (arr: number[]) => number[],
   quickSort: (arr: number[], left: number, right: number) => number[],
   insertionSort: (arr: number[]) => number[],
-  setArray: (arr: number[]) => void
+  setArray: (arr: number[]) => void,
+  currentArray: number[]
 }
 
-export default class Header extends React.Component<IProps> {
+interface IState {
+  sorting: boolean
+}
+
+export default class Header extends React.Component<IProps, IState> {
+  constructor(props: IProps){
+    super(props);
+
+    this.state = {
+      sorting: false
+    };
+  }
+
   render(){
     return (
       <header>
@@ -19,9 +32,18 @@ export default class Header extends React.Component<IProps> {
           let arr = this.props.mergeSort((event.target as any).index);
           this.props.setArray(arr);
         }}>Merge Sort</button>
-        <button onClick={() => this.props.bubbleSort}>Bubble Sort</button>
-        <button onClick={() => this.props.quickSort}>Quick Sort</button>
-        <button onClick={() => this.props.insertionSort}>Insertion Sort</button>
+        <button onClick={(event: React.MouseEvent<HTMLElement>) => {
+          let arr = this.props.bubbleSort((event.target as any).index);
+          this.props.setArray(arr);
+        }}>Bubble Sort</button>
+        <button onClick={(event: React.MouseEvent<HTMLElement>) => {
+          let arr = this.props.quickSort((event.target as any).index, 0, this.props.currentArray.length);
+          this.props.setArray(arr);
+        }}>Quick Sort</button>
+        <button onClick={(event: React.MouseEvent<HTMLElement>) => {
+          let arr = this.props.insertionSort((event.target as any).index);
+          this.props.setArray(arr);
+        }}>Insertion Sort</button>
         <button onClick={this.props.generateArray}>Generate A New Array</button>
       </header>
     );
