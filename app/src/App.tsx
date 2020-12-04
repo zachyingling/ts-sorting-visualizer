@@ -40,9 +40,9 @@ export default class App extends React.Component<IProps, ArrayState> {
 
   generateArray(){
     let tempArr = [];
-    for(let i = 0; i < 100; i++){
-      // Generate a random number from 1-100
-      let randomNumber = Math.floor(Math.random() * 700) + 4;
+    for(let i = 0; i < 20; i++){
+      // Generate a random number from 4-100
+      let randomNumber = Math.floor(Math.random() * 100) + 4;
       tempArr.push(randomNumber);
     }
     this.setState({
@@ -57,7 +57,30 @@ export default class App extends React.Component<IProps, ArrayState> {
   }
 
   mergeSort(mainArray: number [] = this.state.firstGenArray){
-    return mergeSortFunction(mainArray);
+    let animations = mergeSortFunction.getAnimations(mainArray);
+    // console.log(animations);
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
+      const isColorChange = i % 3 !== 2;
+      if (isColorChange) {
+        const tempArr: number | number[] = animations[i];
+        if(typeof tempArr === "number") continue;
+        const barOneStyle = arrayBars[tempArr[0]].style;
+        const barTwoStyle = arrayBars[tempArr[1]].style;
+        const color = i % 3 === 0 ? "red" : "purple";
+        setTimeout(() => {
+          barOneStyle.backgroundColor = color;
+          barTwoStyle.backgroundColor = color;
+        }, i * 20);
+      } else {
+        const tempArr: number | number[] = animations[i];
+        if(typeof tempArr === "number") continue;
+        setTimeout(() => {
+          const barOneStyle = arrayBars[tempArr[0]].style;
+          barOneStyle.height = `${tempArr[1]}px`;
+        }, i * 20);
+      }
+    }
   }
 
   bubbleSort(mainArray: number[] = this.state.firstGenArray){
@@ -74,8 +97,7 @@ export default class App extends React.Component<IProps, ArrayState> {
 
   render(){
     return (
-      <div className="App">
-        <div>
+      <main className="App">
           <Header 
             generateArray={this.generateArray}
             mergeSort={this.mergeSort}
@@ -93,8 +115,7 @@ export default class App extends React.Component<IProps, ArrayState> {
               </Col>
             </Row>
           </Container>
-        </div>
-      </div>
+      </main>
     );
   }
 }

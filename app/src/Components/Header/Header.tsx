@@ -3,7 +3,7 @@ import "./Header.css";
 
 interface IProps {
   generateArray: () => void,
-  mergeSort: (mainArray: number[]) => number[],
+  mergeSort: (mainArray: number[]) => void,
   bubbleSort: (arr: number[]) => number[],
   quickSort: (arr: number[], left: number, right: number) => number[],
   insertionSort: (arr: number[]) => number[],
@@ -30,7 +30,7 @@ export default class Header extends React.Component<IProps, IState> {
         <h1 id="title">Sorting Visualizer</h1>
         <button onClick={(event: React.MouseEvent<HTMLElement>) => {
           let arr = this.props.mergeSort((event.target as any).index);
-          this.props.setArray(arr);
+          console.log(arr);
         }}>Merge Sort</button>
         <button onClick={(event: React.MouseEvent<HTMLElement>) => {
           let arr = this.props.bubbleSort((event.target as any).index);
