@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import Value from "./Components/Value/Value";
 import Header from "./Components/Header/Header";
 import Container from "react-bootstrap/Container";
@@ -17,6 +17,7 @@ interface ArrayState {
 }
 
 export default class App extends React.Component<IProps, ArrayState> {
+  child: React.RefObject<Header>;
   constructor(props: IProps){
     super(props);
 
@@ -29,6 +30,8 @@ export default class App extends React.Component<IProps, ArrayState> {
     this.insertionSort = this.insertionSort.bind(this);
     this.setArray = this.setArray.bind(this);
 
+    this.child = React.createRef();
+
     this.state = {
       firstGenArray: []
     };
@@ -38,11 +41,19 @@ export default class App extends React.Component<IProps, ArrayState> {
     this.generateArray();
   }
 
+  getArraySize(){
+    let arraySize = Number(this.child.current?.state.arraySizeText);
+
+    if(isNaN(arraySize)) arraySize = 25;
+    return arraySize;
+  }
+
   generateArray(){
+    let arraySize = this.getArraySize();
     let tempArr = [];
-    for(let i = 0; i < 20; i++){
-      // Generate a random number from 4-100
-      let randomNumber = Math.floor(Math.random() * 100) + 4;
+    for(let i = 0; i < arraySize; i++){
+      // Generate a random number from 4-720
+      let randomNumber = Math.floor(Math.random() * 720) + 4;
       tempArr.push(randomNumber);
     }
     this.setState({
@@ -56,29 +67,56 @@ export default class App extends React.Component<IProps, ArrayState> {
     });
   }
 
+  setValuesToRed(){
+    const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
+    for(let i = 0; i < arrayBars.length; i++){
+      arrayBars[i].style.backgroundColor = "red";
+    }
+  }
+
+  getSortSpeed(){
+    // How fast the sorting algorithm will show the comparisons in milliseconds
+    let sortSpeed = Number(this.child.current?.state.speedButtonText);
+    if(isNaN(sortSpeed)) sortSpeed = 5;
+    return sortSpeed;
+  }
+
   mergeSort(mainArray: number [] = this.state.firstGenArray){
+    let sortSpeed = this.getSortSpeed();
     let animations = mergeSortFunction.getAnimations(mainArray);
-    // console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
       const isColorChange = i % 3 !== 2;
       if (isColorChange) {
         const tempArr: number | number[] = animations[i];
+        // tempArr will always be a number[] but couldn't figure out why it was expecting a number in some instances
+        // so added this if statement to get rid of the error
         if(typeof tempArr === "number") continue;
         const barOneStyle = arrayBars[tempArr[0]].style;
         const barTwoStyle = arrayBars[tempArr[1]].style;
-        const color = i % 3 === 0 ? "red" : "purple";
+        const color = i % 3 === 0 ? "turquoise" : "purple";
         setTimeout(() => {
           barOneStyle.backgroundColor = color;
           barTwoStyle.backgroundColor = color;
-        }, i * 20);
+          if(i === animations.length - 1) { 
+            this.child.current?.setState({sorting: false});
+            this.setValuesToRed();
+          }
+        }, i * sortSpeed);
       } else {
         const tempArr: number | number[] = animations[i];
+        // tempArr will always be a number[] but couldn't figure out why it was expecting a number in some instances
+        // so added this if statement to get rid of the error
         if(typeof tempArr === "number") continue;
+        // eslint-disable-next-line no-loop-func
         setTimeout(() => {
           const barOneStyle = arrayBars[tempArr[0]].style;
           barOneStyle.height = `${tempArr[1]}px`;
-        }, i * 20);
+          if(i === animations.length - 1) { 
+            this.child.current?.setState({sorting: false});
+            this.setValuesToRed();
+          }
+        }, i * sortSpeed);
       }
     }
   }
@@ -106,6 +144,7 @@ export default class App extends React.Component<IProps, ArrayState> {
             insertionSort={this.insertionSort}
             setArray={this.setArray}
             currentArray={this.state.firstGenArray}
+            ref={this.child}
           />
           <Container fluid>
             <Row className="justify-content-md-center">

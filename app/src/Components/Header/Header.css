@@ -1,6 +1,7 @@
 header {
   background-color: blue;
   padding: 10px;
+  height: 100px;
 }
 
 button {
@@ -16,4 +17,9 @@ button {
 
 br{
   clear: both;
+}
+
+#sorting-title {
+  color: white;
+  float: right;
 }
