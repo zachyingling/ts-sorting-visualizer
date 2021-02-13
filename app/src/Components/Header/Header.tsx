@@ -42,27 +42,31 @@ export default class Header extends React.Component<IProps, IState> {
         <h1 id="title">Sorting Visualizer</h1>
         {this.state.sorting ? <h1 id="sorting-title">Sorting</h1> : 
           <>
-            <button onClick={(event: React.MouseEvent<HTMLElement>) => {
+            <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
               this.changeSortingState();
               this.props.mergeSort((event.target as any).index);
             }}>Merge Sort</button>
-            <button onClick={(event: React.MouseEvent<HTMLElement>) => {
+            <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
+              this.changeSortingState();
               let arr = this.props.bubbleSort((event.target as any).index);
               this.props.setArray(arr);
             }}>Bubble Sort</button>
-            <button onClick={(event: React.MouseEvent<HTMLElement>) => {
+            <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
+              this.changeSortingState();
               let arr = this.props.quickSort((event.target as any).index, 0, this.props.currentArray.length);
               this.props.setArray(arr);
             }}>Quick Sort</button>
-            <button onClick={(event: React.MouseEvent<HTMLElement>) => {
+            <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
+              this.changeSortingState();
               let arr = this.props.insertionSort((event.target as any).index);
               this.props.setArray(arr);
             }}>Insertion Sort</button>
 
-            <button onClick={this.props.generateArray}>Generate A New Array</button>
+            <button id="algo-buttons" onClick={this.props.generateArray}>Generate A New Array</button>
 
             {/* Code for Dropdown of Speed for sorting algorithm */}
             <DropdownButton
+              className="header-dropdown"
               id="dropdown-item-button"
               title={this.state.speedButtonText}
             >
@@ -100,6 +104,7 @@ export default class Header extends React.Component<IProps, IState> {
 
             {/* Code for Array Size */}
             <DropdownButton
+              className="header-dropdown"
               id="dropdown-item-button"
               title={this.state.arraySizeText}
             >

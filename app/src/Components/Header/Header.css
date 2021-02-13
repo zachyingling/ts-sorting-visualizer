@@ -1,10 +1,9 @@
 header {
   background-color: blue;
   padding: 10px;
-  height: 100px;
 }
 
-button {
+#algo-buttons {
   background-color: burlywood;
   float: right;
   margin: 10px;
@@ -21,5 +20,10 @@ br{
 
 #sorting-title {
   color: white;
-  float: right;
+  /* float: right; */
+}
+
+.header-dropdown {
+  left: 80% !important;
+  margin: 10px;
 }

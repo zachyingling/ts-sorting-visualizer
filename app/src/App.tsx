@@ -84,6 +84,7 @@ export default class App extends React.Component<IProps, ArrayState> {
   mergeSort(mainArray: number [] = this.state.firstGenArray){
     let sortSpeed = this.getSortSpeed();
     let animations = mergeSortFunction.getAnimations(mainArray);
+    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
       const isColorChange = i % 3 !== 2;
