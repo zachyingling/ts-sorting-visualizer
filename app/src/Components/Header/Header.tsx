@@ -50,16 +50,19 @@ export default class Header extends React.Component<IProps, IState> {
               this.changeSortingState();
               let arr = this.props.bubbleSort((event.target as any).index);
               this.props.setArray(arr);
+              this.changeSortingState();
             }}>Bubble Sort</button>
             <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
               this.changeSortingState();
               let arr = this.props.quickSort((event.target as any).index, 0, this.props.currentArray.length);
               this.props.setArray(arr);
+              this.changeSortingState();
             }}>Quick Sort</button>
             <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
               this.changeSortingState();
               let arr = this.props.insertionSort((event.target as any).index);
               this.props.setArray(arr);
+              this.changeSortingState();
             }}>Insertion Sort</button>
 
             <button id="algo-buttons" onClick={this.props.generateArray}>Generate A New Array</button>
