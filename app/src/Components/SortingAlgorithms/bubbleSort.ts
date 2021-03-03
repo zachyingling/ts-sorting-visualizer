@@ -1,3 +1,5 @@
+const getBubbleSortAnimations = () => {};
+
 const bubbleSort = (arr: number[]) => {
   let noSwaps: boolean;
   for(let i = arr.length; i > 0; i--){

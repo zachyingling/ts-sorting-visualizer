@@ -131,7 +131,7 @@ export default class App extends React.Component<IProps, ArrayState> {
     let sortSpeed = this.getSortSpeed();
     return quickSortFunction(mainArray, left, right);
   }
-
+ 
   insertionSort(mainArray: number[] = this.state.firstGenArray){
     let sortSpeed = this.getSortSpeed();
     return insertionSortFunction(mainArray);
