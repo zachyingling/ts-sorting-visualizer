@@ -84,7 +84,6 @@ export default class App extends React.Component<IProps, ArrayState> {
   mergeSort(mainArray: number [] = this.state.firstGenArray){
     let sortSpeed = this.getSortSpeed();
     let animations = mergeSortFunction.getAnimations(mainArray);
-    console.log(animations);
     for (let i = 0; i < animations.length; i++) {
       const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
       const isColorChange = i % 3 !== 2;
@@ -124,7 +123,22 @@ export default class App extends React.Component<IProps, ArrayState> {
 
   bubbleSort(mainArray: number[] = this.state.firstGenArray){
     let sortSpeed = this.getSortSpeed();
-    return bubbleSortFunction(mainArray);
+    let animations = bubbleSortFunction(mainArray);
+    const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
+    console.log(animations);
+    for(let i = 0; i < animations.length; i++){
+      let firstBar = arrayBars[animations[i][0]];
+      let secondBar = arrayBars[animations[i][2]];
+      let swap = animations[i][4];
+      firstBar.style.backgroundColor = "turquoise";
+      secondBar.style.backgroundColor = "turquoise";
+      if(swap) {
+        firstBar.style.height = animations[i][3] + "px";
+        secondBar.style.height = animations[i][1] + "px";
+      }
+      this.setValuesToRed();
+    }
+    this.child.current?.setState({sorting: false});
   }
 
   quickSort(mainArray: number[] = this.state.firstGenArray, left = 0, right = mainArray.length - 1){

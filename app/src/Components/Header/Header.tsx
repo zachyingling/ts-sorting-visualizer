@@ -1,6 +1,5 @@
 import React from "react";
-import { DropdownButton, Dropdown } from "react-bootstrap"
-
+import { DropdownButton, Dropdown } from "react-bootstrap";
 import "./Header.css";
 
 interface IProps {

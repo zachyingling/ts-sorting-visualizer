@@ -10,11 +10,11 @@ const bubbleSort = (arr: number[]) => {
   for(let i = arr.length; i > 0; i--){
     noSwaps = true;
     for(let j = 0; j < i - 1; j++){
-      let tempArr = [j, j + 1, 0];
+      let tempArr = [j, arr[j], j + 1, arr[j + 1], 0];
       if(arr[j] > arr[j + 1]){
         swap(arr, j, j+1);
         noSwaps = false;
-        tempArr[2] = 1;
+        tempArr[4] = 1;
       }
       comparisons.push(tempArr);
     }
