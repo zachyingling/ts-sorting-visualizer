@@ -6,7 +6,7 @@ import "./Header.css";
 interface IProps {
   generateArray: () => void,
   mergeSort: (mainArray: number[]) => void,
-  bubbleSort: (arr: number[]) => number[],
+  bubbleSort: (arr: number[]) => void,
   quickSort: (arr: number[], left: number, right: number) => number[],
   insertionSort: (arr: number[]) => number[],
   setArray: (arr: number[]) => void,
@@ -48,9 +48,7 @@ export default class Header extends React.Component<IProps, IState> {
             }}>Merge Sort</button>
             <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
               this.changeSortingState();
-              let arr = this.props.bubbleSort((event.target as any).index);
-              this.props.setArray(arr);
-              this.changeSortingState();
+              this.props.bubbleSort((event.target as any).index);
             }}>Bubble Sort</button>
             <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
               this.changeSortingState();
