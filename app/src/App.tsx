@@ -121,24 +121,40 @@ export default class App extends React.Component<IProps, ArrayState> {
     }
   }
 
+  sleep(ms: number){
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   bubbleSort(mainArray: number[] = this.state.firstGenArray){
     let sortSpeed = this.getSortSpeed();
     let animations = bubbleSortFunction(mainArray);
     const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
     console.log(animations);
     for(let i = 0; i < animations.length; i++){
+      setTimeout(() => {
       let firstBar = arrayBars[animations[i][0]];
       let secondBar = arrayBars[animations[i][2]];
       let swap = animations[i][4];
       firstBar.style.backgroundColor = "turquoise";
       secondBar.style.backgroundColor = "turquoise";
-      if(swap) {
-        firstBar.style.height = animations[i][3] + "px";
-        secondBar.style.height = animations[i][1] + "px";
-      }
-      this.setValuesToRed();
+        setTimeout(() => {
+          this.bubbleSortHelper(firstBar, secondBar, swap, i, animations);
+        }, sortSpeed);
+      }, sortSpeed * i);
     }
     this.child.current?.setState({sorting: false});
+  }
+
+  bubbleSortHelper(firstBar: HTMLElement, secondBar: HTMLElement, swap: number, i: number, animations: number[][]){
+    if(swap) {
+      firstBar.style.height = animations[i][3] + "px";
+      secondBar.style.height = animations[i][1] + "px";
+    }
+    firstBar.style.backgroundColor = "purple";
+    if(i === animations.length - 1) { 
+      this.child.current?.setState({sorting: false});
+      this.setValuesToRed();
+    }
   }
 
   quickSort(mainArray: number[] = this.state.firstGenArray, left = 0, right = mainArray.length - 1){
