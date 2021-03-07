@@ -24,7 +24,7 @@ export default class Header extends React.Component<IProps, IState> {
 
     this.state = {
       sorting: false,
-      speedButtonText: "Select Sorting Speed (Default: 5ms)",
+      speedButtonText: "Select Sorting Speed (Default: 25ms)",
       arraySizeText: "Select Array Size (Default: 25)"
     };
   }
@@ -87,7 +87,7 @@ export default class Header extends React.Component<IProps, IState> {
                 this.setState({
                   speedButtonText: tempTarget.textContent
                 });
-              }}>20</Dropdown.Item>
+              }}>25</Dropdown.Item>
               <Dropdown.Item eventKey="3" onClick={(e) => {
                 let tempTarget = e.target as HTMLElement;
                 this.setState({

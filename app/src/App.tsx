@@ -77,7 +77,7 @@ export default class App extends React.Component<IProps, ArrayState> {
   getSortSpeed(){
     // How fast the sorting algorithm will show the comparisons in milliseconds
     let sortSpeed = Number(this.child.current?.state.speedButtonText);
-    if(isNaN(sortSpeed)) sortSpeed = 5;
+    if(isNaN(sortSpeed)) sortSpeed = 25;
     return sortSpeed;
   }
 
@@ -142,7 +142,6 @@ export default class App extends React.Component<IProps, ArrayState> {
         }, sortSpeed);
       }, sortSpeed * i);
     }
-    this.child.current?.setState({sorting: false});
   }
 
   bubbleSortHelper(firstBar: HTMLElement, secondBar: HTMLElement, swap: number, i: number, animations: number[][]){
