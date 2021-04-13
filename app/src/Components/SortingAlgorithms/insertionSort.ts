@@ -1,20 +1,31 @@
 const getInsertionSortAnimations = (mainArray: number[]) => {
   let animations = insertionSort(mainArray);
-  console.log(mainArray);
   return animations;
 };
 
 const insertionSort = (arr: number[]) => {
-  for(let i = 1; i < arr.length; i++){
+  let returnedArr: (number | number[])[][] = [];
+  let tempArr = arr;
+  console.log(tempArr);
+  for(let i = 0; i < arr.length; i++){
     let currentVal = arr[i];
-    let j;
+    let j = i;
+    let subArr: (number | number[])[];
+    subArr = [tempArr, i, j];
 
-    for(j = i - 1; j >= 0 && arr[j] > currentVal; j--){
-      arr[j+1] = arr[j];
+    while(j > 0 && arr[j - 1] > currentVal){
+      arr[j] = arr[j-1];
+      j = j - 1;
+      subArr.push(0);
+      returnedArr.push(subArr);
+      subArr = [tempArr, i, j];
     }
-    arr[j + 1] = currentVal;
+
+    arr[j] = currentVal;
+    subArr.push(1);
+    returnedArr.push(subArr);
   }
-  return arr;
+  return returnedArr;
 }
 
 export default getInsertionSortAnimations;

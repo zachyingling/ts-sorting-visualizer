@@ -163,7 +163,6 @@ export default class App extends React.Component<IProps, ArrayState> {
     let animations = insertionSortFunction(mainArray);
     const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
     console.log(animations);
-    this.setState({ firstGenArray: animations });
   }
 
   render(){
