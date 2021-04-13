@@ -7,7 +7,7 @@ interface IProps {
   mergeSort: (mainArray: number[]) => void,
   bubbleSort: (arr: number[]) => void,
   quickSort: (arr: number[], left: number, right: number) => number[],
-  insertionSort: (arr: number[]) => number[],
+  insertionSort: (arr: number[]) => void,
   setArray: (arr: number[]) => void,
   currentArray: number[]
 }
@@ -57,9 +57,7 @@ export default class Header extends React.Component<IProps, IState> {
             }}>Quick Sort</button>
             <button id="algo-buttons" onClick={(event: React.MouseEvent<HTMLElement>) => {
               this.changeSortingState();
-              let arr = this.props.insertionSort((event.target as any).index);
-              this.props.setArray(arr);
-              this.changeSortingState();
+              this.props.insertionSort((event.target as any).index);
             }}>Insertion Sort</button>
 
             <button id="algo-buttons" onClick={this.props.generateArray}>Generate A New Array</button>

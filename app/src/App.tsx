@@ -121,10 +121,7 @@ export default class App extends React.Component<IProps, ArrayState> {
     }
   }
 
-  sleep(ms: number){
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
+  // test bubble sort more
   bubbleSort(mainArray: number[] = this.state.firstGenArray){
     let sortSpeed = this.getSortSpeed();
     let animations = bubbleSortFunction(mainArray);
@@ -163,7 +160,10 @@ export default class App extends React.Component<IProps, ArrayState> {
  
   insertionSort(mainArray: number[] = this.state.firstGenArray){
     let sortSpeed = this.getSortSpeed();
-    return insertionSortFunction(mainArray);
+    let animations = insertionSortFunction(mainArray);
+    const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
+    console.log(animations);
+    this.setState({ firstGenArray: animations });
   }
 
   render(){

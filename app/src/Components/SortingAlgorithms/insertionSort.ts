@@ -1,3 +1,9 @@
+const getInsertionSortAnimations = (mainArray: number[]) => {
+  let animations = insertionSort(mainArray);
+  console.log(mainArray);
+  return animations;
+};
+
 const insertionSort = (arr: number[]) => {
   for(let i = 1; i < arr.length; i++){
     let currentVal = arr[i];
@@ -11,4 +17,4 @@ const insertionSort = (arr: number[]) => {
   return arr;
 }
 
-export default insertionSort;
+export default getInsertionSortAnimations;
