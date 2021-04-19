@@ -4,27 +4,26 @@ const getInsertionSortAnimations = (mainArray: number[]) => {
 };
 
 const insertionSort = (arr: number[]) => {
-  let returnedArr: (number | number[])[][] = [];
-  let tempArr = arr;
-  console.log(tempArr);
+  let returnedArr: number[][] = [];
+
   for(let i = 0; i < arr.length; i++){
     let currentVal = arr[i];
     let j = i;
-    let subArr: (number | number[])[];
-    subArr = [tempArr, i, j];
+    let subArr: number[];
+    subArr = [j+1, j];
 
     while(j > 0 && arr[j - 1] > currentVal){
       arr[j] = arr[j-1];
       j = j - 1;
-      subArr.push(0);
       returnedArr.push(subArr);
-      subArr = [tempArr, i, j];
+      subArr = [j+1, j];
     }
 
     arr[j] = currentVal;
-    subArr.push(1);
     returnedArr.push(subArr);
   }
+
+  // Nested arrays indeces 0=i, 1=j, doneSwapping=0(false)/1(true)
   return returnedArr;
 }
 

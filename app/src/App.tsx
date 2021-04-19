@@ -126,7 +126,6 @@ export default class App extends React.Component<IProps, ArrayState> {
     let sortSpeed = this.getSortSpeed();
     let animations = bubbleSortFunction(mainArray);
     const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
-    console.log(animations);
     for(let i = 0; i < animations.length; i++){
       setTimeout(() => {
       let firstBar = arrayBars[animations[i][0]];
@@ -154,15 +153,46 @@ export default class App extends React.Component<IProps, ArrayState> {
   }
 
   quickSort(mainArray: number[] = this.state.firstGenArray, left = 0, right = mainArray.length - 1){
-    let sortSpeed = this.getSortSpeed();
+    // let sortSpeed = this.getSortSpeed();
     return quickSortFunction(mainArray, left, right);
   }
  
   insertionSort(mainArray: number[] = this.state.firstGenArray){
+    let tempArr = mainArray;
+    console.log(tempArr);
     let sortSpeed = this.getSortSpeed();
     let animations = insertionSortFunction(mainArray);
     const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
     console.log(animations);
+    for(let i = 0; i < animations.length; i++){
+      setTimeout(() => {
+      let firstBar = arrayBars[animations[i][1]];
+      let secondBar = arrayBars[animations[i][0]];
+      if(secondBar && firstBar){
+        firstBar.style.backgroundColor = "turquoise";
+        secondBar.style.backgroundColor = "turquoise";
+          setTimeout(() => {
+            this.insertionSortHelper(firstBar, secondBar, i, animations[i]);
+          }, sortSpeed);
+      }
+      }, sortSpeed * i);
+    }
+  }
+
+  insertionSortHelper(firstBar: HTMLElement, secondBar: HTMLElement, i: number, animations: number[]){
+    let first = animations[1];
+    let second = animations[0];
+    let tempHeight = firstBar.style.height;
+    if(first > second) {
+      firstBar.style.height = secondBar.style.height;
+      secondBar.style.height = tempHeight;
+    }
+    firstBar.style.backgroundColor = "green";
+    secondBar.style.backgroundColor = "green";
+    if(i === animations.length - 1) { 
+      this.child.current?.setState({sorting: false});
+      this.setValuesToRed();
+    }
   }
 
   render(){
