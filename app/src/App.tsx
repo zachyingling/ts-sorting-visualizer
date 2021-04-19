@@ -158,12 +158,10 @@ export default class App extends React.Component<IProps, ArrayState> {
   }
  
   insertionSort(mainArray: number[] = this.state.firstGenArray){
-    let tempArr = mainArray;
-    console.log(tempArr);
     let sortSpeed = this.getSortSpeed();
     let animations = insertionSortFunction(mainArray);
-    const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
     console.log(animations);
+    const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
     for(let i = 0; i < animations.length; i++){
       setTimeout(() => {
       let firstBar = arrayBars[animations[i][1]];
