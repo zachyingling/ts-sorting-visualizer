@@ -13,7 +13,9 @@ import quickSortFunction from "./Components/SortingAlgorithms/quickSort";
 interface IProps {}
 
 interface ArrayState {
-  firstGenArray: number[]
+  firstGenArray: number[],
+  insertionSortState: boolean,
+  insertionSortState2: boolean
 }
 
 export default class App extends React.Component<IProps, ArrayState> {
@@ -33,7 +35,9 @@ export default class App extends React.Component<IProps, ArrayState> {
     this.child = React.createRef();
 
     this.state = {
-      firstGenArray: []
+      firstGenArray: [],
+      insertionSortState: false,
+      insertionSortState2: true
     };
   }
 
@@ -162,35 +166,74 @@ export default class App extends React.Component<IProps, ArrayState> {
     let animations = insertionSortFunction(mainArray);
     console.log(animations);
     const arrayBars = document.getElementsByClassName('valueContainer') as HTMLCollectionOf<HTMLElement>;
-    for(let i = 0; i < animations.length; i++){
-      setTimeout(() => {
-      let firstBar = arrayBars[animations[i][1]];
-      let secondBar = arrayBars[animations[i][0]];
-      if(secondBar && firstBar){
-        firstBar.style.backgroundColor = "turquoise";
-        secondBar.style.backgroundColor = "turquoise";
-          setTimeout(() => {
-            this.insertionSortHelper(firstBar, secondBar, i, animations[i]);
-          }, sortSpeed);
+    arrayBars[0].style.backgroundColor = "green";
+    this.insertionSortAfterClicked(animations, arrayBars, sortSpeed);
+  }
+
+  insertionSortAfterClicked(animations: number[][], arrayBars: HTMLCollectionOf<HTMLElement>, sortSpeed: number){
+    let i = 1;
+    while(i < animations[0].length){
+      // true; next
+      if(this.state.insertionSortState2){
+        this.setState({insertionSortState2: false,insertionSortState: true});
+        this.insertionSortOuterLoopHelper(animations, arrayBars, sortSpeed, i);
+        i++;
+      } else {
+        setTimeout(()=>{
+          this.insertionSortAfterClicked(animations, arrayBars, sortSpeed);
+        }, sortSpeed * i);
       }
-      }, sortSpeed * i);
     }
   }
 
-  insertionSortHelper(firstBar: HTMLElement, secondBar: HTMLElement, i: number, animations: number[]){
-    let first = animations[1];
-    let second = animations[0];
-    let tempHeight = firstBar.style.height;
-    if(first > second) {
-      firstBar.style.height = secondBar.style.height;
-      secondBar.style.height = tempHeight;
+  insertionSortOuterLoopHelper(animations: number[][], arrayBars: HTMLCollectionOf<HTMLElement>, sortSpeed: number, i: number){
+    console.log(i);
+    const extractedBar = arrayBars[i];
+    let stateFlag = this.state.insertionSortState;
+    // false; call itself
+    if(!stateFlag){
+      setTimeout(() => { 
+        this.insertionSortOuterLoopHelper(animations, arrayBars, sortSpeed, i);
+      }, i * sortSpeed);
+    } else {
+      this.insertionSortInnerLoopHelper(animations, arrayBars, sortSpeed, i, extractedBar);
+      i++;
     }
-    firstBar.style.backgroundColor = "green";
-    secondBar.style.backgroundColor = "green";
-    if(i === animations.length - 1) { 
-      this.child.current?.setState({sorting: false});
-      this.setValuesToRed();
+  }
+
+  insertionSortInnerLoopHelper(animations: number[][], arrayBars: HTMLCollectionOf<HTMLElement>, sortSpeed: number, i: number, extractedBar: HTMLElement){
+    this.setState({insertionSortState: false, insertionSortState2: true});
+    for (let j = i - 1; j >= 0; j--) {
+      const firstBar = arrayBars[j];
+      if(extractedBar && firstBar){
+        extractedBar.style.backgroundColor = "turquoise";
+        let firstHeight = firstBar.style.height.substring(0, firstBar.style.height.length - 2);
+        let secondHeight = extractedBar.style.height.substring(0, extractedBar.style.height.length - 2);
+        if(firstHeight > secondHeight){
+          this.insertionSortSwapHelper(firstBar, firstHeight, extractedBar, secondHeight, false, i, sortSpeed);
+        } else {
+          this.insertionSortSwapHelper(firstBar, firstHeight, extractedBar, secondHeight, true, i, sortSpeed);
+          j = -1;
+        }
+      } else {
+        this.child.current?.setState({sorting: false});
+        this.setValuesToRed();
+      }
     }
+  }
+
+  insertionSortSwapHelper(firstBar: HTMLElement, firstHeight: string, extractedBar: HTMLElement, secondHeight: string, done: boolean, i: number, sortSpeed: number){
+    setTimeout(() => {
+      if(!done){
+        extractedBar.style.height = firstHeight + "px";
+          firstBar.style.height = secondHeight + "px";
+          extractedBar.style.backgroundColor = "green";
+          firstBar.style.backgroundColor = "turquoise";
+      } else {
+          firstBar.style.backgroundColor = "green";
+          extractedBar.style.backgroundColor = "green";
+      }
+    }, sortSpeed * i);
   }
 
   render(){
